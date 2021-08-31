@@ -8,9 +8,6 @@ class FeedbackSection extends Component {
     initialGood: 0,
     initialNeutral: 0,
     initialBad: 0,
-    initialTotal: 0,
-    initialPercentage: 0,
-    visible: false,
     options: ['Good', 'Neutral', 'Bad'],
   };
 
@@ -18,9 +15,6 @@ class FeedbackSection extends Component {
     good: this.props.initialGood,
     neutral: this.props.initialNeutral,
     bad: this.props.initialBad,
-    total: this.props.initialTotal,
-    positivePercentage: this.props.initialPercentage,
-    visible: this.props.visible,
   };
 
   handleFeedback = e => {
@@ -28,17 +22,19 @@ class FeedbackSection extends Component {
 
     this.setState(prev => ({
       [feedbackOption]: prev[feedbackOption] + 1,
-      total: prev.total + 1,
-      visible: true,
-    }));
-
-    this.setState(prev => ({
-      positivePercentage: Math.round((prev.good / prev.total) * 100),
     }));
   };
 
+  countTotalFeedback = () => {
+    return this.state.good + this.state.neutral + this.state.bad;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    return Math.round((this.state.good / this.countTotalFeedback()) * 100);
+  };
+
   render() {
-    const { good, neutral, bad, total, positivePercentage } = this.state;
+    const { good, neutral, bad } = this.state;
 
     return (
       <div>
@@ -49,14 +45,14 @@ class FeedbackSection extends Component {
           />
         </Section>
 
-        {this.state.visible ? (
+        {this.countTotalFeedback() ? (
           <Section title="Statistics">
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={total}
-              positivePercentage={positivePercentage}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
             />
           </Section>
         ) : (
