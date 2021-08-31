@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Section from 'components/Feedback/Section/Section';
 import FeedbackOptions from 'components/Feedback/FeedbackOptions/FeedbackOptions';
 import Statistics from 'components/Feedback/Statistics/Statistics';
-import PropTypes from 'prop-types';
 
 class FeedbackSection extends Component {
   static defaultProps = {
