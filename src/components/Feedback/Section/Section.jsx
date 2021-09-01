@@ -1,6 +1,3 @@
-// import FeedbackBtns from './components/Feedback/FeedbackBtns/FeedbackBtns';
-// import Statistics from './components/Feedback/Statistics/Statistics';
-
 import PropTypes from 'prop-types';
 
 function Section({ title, children }) {

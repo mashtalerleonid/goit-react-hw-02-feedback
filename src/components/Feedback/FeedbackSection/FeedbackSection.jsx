@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Section from 'components/Feedback/Section/Section';
-import FeedbackOptions from 'components/Feedback/FeedbackOptions/FeedbackOptions';
-import Statistics from 'components/Feedback/Statistics/Statistics';
+import Section from 'components/Feedback/Section';
+import FeedbackOptions from 'components/Feedback/FeedbackOptions';
+import Statistics from 'components/Feedback/Statistics';
 
 class FeedbackSection extends Component {
   static defaultProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FeedbackSection from 'components/Feedback/FeedbackSection/FeedbackSection';
+import FeedbackSection from 'components/Feedback/FeedbackSection';
 
 function App() {
   return <FeedbackSection />;
