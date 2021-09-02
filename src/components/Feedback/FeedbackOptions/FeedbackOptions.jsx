@@ -2,25 +2,28 @@ import PropTypes from 'prop-types';
 import { Button } from './FeedbackOptions.styled';
 
 function FeedbackOptions({ onLeaveFeedback, options }) {
+  const keys = Object.keys(options);
   return (
     <div>
-      {options.map(option => (
-        <Button
-          key={option}
-          type="button"
-          data-option={option.toLowerCase()}
-          onClick={onLeaveFeedback}
-        >
-          {option}
-        </Button>
-      ))}
+      {keys.map(key => {
+        return (
+          <Button
+            key={key}
+            type="button"
+            data-option={key}
+            onClick={onLeaveFeedback}
+          >
+            {options[key]}
+          </Button>
+        );
+      })}
     </div>
   );
 }
 
 FeedbackOptions.propTypes = {
   onLeaveFeedback: PropTypes.func,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.objectOf(PropTypes.string),
 };
 
 export default FeedbackOptions;

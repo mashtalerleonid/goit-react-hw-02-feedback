@@ -1,13 +1,18 @@
 import { FeedbakcTypes, Type } from './Statistics.styled';
 import PropTypes from 'prop-types';
 
-function Statistics({ good, neutral, bad, total, positivePercentage }) {
+function Statistics({ options, state, total, positivePercentage }) {
+  const keys = Object.keys(options);
   return (
     <div>
       <FeedbakcTypes>
-        <Type>Good: {good}</Type>
-        <Type>Neutral: {neutral}</Type>
-        <Type>Bad: {bad}</Type>
+        {keys.map(key => {
+          return (
+            <Type key={key}>
+              {options[key]}: {state[key]}
+            </Type>
+          );
+        })}
       </FeedbakcTypes>
 
       <p>Total: {total}</p>
@@ -17,9 +22,8 @@ function Statistics({ good, neutral, bad, total, positivePercentage }) {
 }
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
+  state: PropTypes.objectOf(PropTypes.number),
+  options: PropTypes.objectOf(PropTypes.string),
   total: PropTypes.number.isRequired,
   positivePercentage: PropTypes.number.isRequired,
 };

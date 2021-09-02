@@ -3,18 +3,22 @@ import Section from 'components/Feedback/Section';
 import FeedbackOptions from 'components/Feedback/FeedbackOptions';
 import Statistics from 'components/Feedback/Statistics';
 
+// Зробив це завдання так, що для того, щоб добавити четверту, повністю працюючу опцію, потрібно добавити у код ЛИШЕ 2 рядки (ті, що закоментовані)
 class FeedbackSection extends Component {
   static defaultProps = {
-    initialGood: 0,
-    initialNeutral: 0,
-    initialBad: 0,
-    options: ['Good', 'Neutral', 'Bad'],
+    options: {
+      good: 'Good',
+      neutral: 'Neutral',
+      bad: 'Bad',
+      // veryBad: 'Very bad',
+    },
   };
 
   state = {
-    good: this.props.initialGood,
-    neutral: this.props.initialNeutral,
-    bad: this.props.initialBad,
+    good: 0,
+    neutral: 0,
+    bad: 0,
+    // veryBad: 0,
   };
 
   handleFeedback = e => {
@@ -26,7 +30,10 @@ class FeedbackSection extends Component {
   };
 
   countTotalFeedback = () => {
-    return this.state.good + this.state.neutral + this.state.bad;
+    const values = Object.values(this.state);
+    return values.reduce((acc, values) => {
+      return acc + values;
+    }, 0);
   };
 
   countPositiveFeedbackPercentage = () => {
@@ -34,8 +41,6 @@ class FeedbackSection extends Component {
   };
 
   render() {
-    const { good, neutral, bad } = this.state;
-
     return (
       <div>
         <Section title="Please leave feedback">
@@ -44,13 +49,11 @@ class FeedbackSection extends Component {
             options={this.props.options}
           />
         </Section>
-
         {this.countTotalFeedback() ? (
           <Section title="Statistics">
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              options={this.props.options}
+              state={this.state}
               total={this.countTotalFeedback()}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
