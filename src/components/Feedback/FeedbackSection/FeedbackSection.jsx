@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Section from 'components/Feedback/Section';
 import FeedbackOptions from 'components/Feedback/FeedbackOptions';
 import Statistics from 'components/Feedback/Statistics';
+import Notification from 'components/Feedback/Notification';
 
 // Зробив це завдання так, що для того, щоб добавити четверту, повністю працюючу опцію, потрібно добавити у код ЛИШЕ 2 рядки (ті, що закоментовані)
 class FeedbackSection extends Component {
@@ -59,7 +60,7 @@ class FeedbackSection extends Component {
             />
           </Section>
         ) : (
-          <p>No feedback given</p>
+          <Notification message={'No feedback given'} />
         )}
       </div>
     );
