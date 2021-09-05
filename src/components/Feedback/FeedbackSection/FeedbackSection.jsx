@@ -52,7 +52,7 @@ class FeedbackSection extends Component {
 
   render() {
     const totalFeedback = this.countTotalFeedback();
-    const PositiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
+    const positiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
 
     return (
       <div>
@@ -68,7 +68,7 @@ class FeedbackSection extends Component {
               options={options}
               state={this.state}
               total={totalFeedback}
-              positivePercentage={PositiveFeedbackPercentage}
+              positivePercentage={positiveFeedbackPercentage}
             />
           </Section>
         ) : (
