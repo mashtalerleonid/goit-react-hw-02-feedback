@@ -4,8 +4,6 @@ import FeedbackOptions from 'components/Feedback/FeedbackOptions';
 import Statistics from 'components/Feedback/Statistics';
 import Notification from 'components/Feedback/Notification';
 
-// Зробив це завдання так, що для того, щоб добавити четверту, повністю працюючу опцію, потрібно добавити у код ЛИШЕ 1 рядок (той, що закоментований)
-
 const options = {
   good: 'Good',
   neutral: 'Neutral',
@@ -15,39 +13,47 @@ const options = {
 
 class FeedbackSection extends Component {
   state = {
-    feedbackTypes: Object.keys(options).reduce(
-      (acc, option) => ({
-        ...acc,
-        [option]: 0,
-      }),
-      {},
-    ),
+    good: 0,
+    neutral: 0,
+    bad: 0,
+    // veryBad:0,
+
+    // feedbackTypes: Object.keys(options).reduce(
+    //   (acc, option) => ({
+    //     ...acc,
+    //     [option]: 0,
+    //   }),
+    //   {},
+    // ),
   };
 
   handleFeedback = e => {
     const feedbackOption = e.target.dataset.option;
     this.setState(prev => ({
-      feedbackTypes: {
-        ...prev.feedbackTypes,
-        [feedbackOption]: prev.feedbackTypes[feedbackOption] + 1,
-      },
+      [feedbackOption]: prev[feedbackOption] + 1,
+
+      // feedbackTypes: {
+      //   ...prev.feedbackTypes,
+      //   [feedbackOption]: prev.feedbackTypes[feedbackOption] + 1,
+      // },
     }));
   };
 
   countTotalFeedback = () => {
-    const values = Object.values(this.state.feedbackTypes);
+    const values = Object.values(this.state);
     return values.reduce((acc, values) => {
       return acc + values;
     }, 0);
   };
 
   countPositiveFeedbackPercentage = () => {
-    return Math.round(
-      (this.state.feedbackTypes.good / this.countTotalFeedback()) * 100,
-    );
+    return Math.round((this.state.good / this.countTotalFeedback()) * 100);
   };
 
   render() {
+    const totalFeedback = this.countTotalFeedback();
+    const PositiveFeedbackPercentage = this.countPositiveFeedbackPercentage();
+
     return (
       <div>
         <Section title="Please leave feedback">
@@ -56,13 +62,13 @@ class FeedbackSection extends Component {
             options={options}
           />
         </Section>
-        {this.countTotalFeedback() ? (
+        {totalFeedback ? (
           <Section title="Statistics">
             <Statistics
               options={options}
-              state={this.state.feedbackTypes}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
+              state={this.state}
+              total={totalFeedback}
+              positivePercentage={PositiveFeedbackPercentage}
             />
           </Section>
         ) : (
